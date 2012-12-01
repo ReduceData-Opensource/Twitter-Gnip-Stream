@@ -152,7 +152,7 @@ public static void index() {
 				        	           } 
 				        	      catch (Exception e) {
 				        	    	      	    	  System.out.println(e);
-								        	          }
+								          }
 				    	   //System.out.println("closing jdbc");
     	              }
   	       		
@@ -163,10 +163,6 @@ public static void index() {
     		System.out.println("error in jdbc connection part");
     	}
     	
-    		
-    	   
-	String browser1,browser2,browser3,browser4,browser5,browser6,browser7,browser8,browser9,browser10;
-	float browsercount1,browsercount2,browsercount3,browsercount4,browsercount5,browsercount6,browsercount7,browsercount8,browsercount9,browsercount10;
 	for(int i=0;i<10;i++)
 	{
 	    	System.out.println("Browser:"+browser[i]+" count:"+browsercount[i]);  
