@@ -18,7 +18,7 @@ public class Application extends Controller {
  static boolean flag=false;
 
 public static void process(String textbox)
-{   //System.out.println("Got from template--data--"+textbox);
+{   
 	tablename=textbox;
 	flag=true;
 	index();
@@ -67,7 +67,7 @@ public static void index() {
 		    	        // Setup the connection with the DB
 		    	        connect = DriverManager
 		    	            .getConnection("jdbc:mysql://localhost/gnipdata?"
-		    	                + "user=sribalakumar1&password=sbk@laptop");
+		    	                + "user=&password=");
 
 		    	        // Statements allow to issue SQL queries to the database
 		    	        statement = connect.createStatement();
