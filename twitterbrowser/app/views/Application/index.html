@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<style type="text/css">
+#region p {
+	color: #F00;
+}
+#tweetvsretweet {
+	color: #F00;
+}
+#tweetvsretweetfunnel p {
+	color: #F00;
+}
+#browser {
+	color: #F00;
+}
+#location {
+color: #F00;
+}
+</style>
+ <!-- Bootstrap -->
+    <link href="public\bootstrap\css\bootstrap.css	" rel="stylesheet" media="screen">
+</head>
+
+<body>
+ <div class="logo"> <a href="#"><img src="public\images\logo.gif" /></a></div class="menu">
+
+
+<form id="form2" name="form2" method="post" action="@{Application.process}">
+<input type="text" name="textbox" id="textbox" />
+<input type="submit"  id="go" value="Go" />
+</form>
+
+<div id=region> 
+<p>Regions</p> 
+</div>
+
+<div class="row">
+<div class="span4">
+
+    <div id=tweetvsretweet>
+             <p>Tweet vs Retweet</p>
+                   <div id="container1" style="min-width: 500px; height: 400px; margin: 0 auto">
+                   <script>  var chart;
+                       $(document).ready(function() {
+                                                      chart = new Highcharts.Chart({
+                                                      chart: {
+                                                               renderTo: 'container1',
+                                                               type: 'line',
+												               marginRight: 130,
+												               marginBottom: 25
+                                                     },
+											            title: {
+											                text: 'Tweets Vs Retweets',
+											               x: -20 //center
+											            },
+										            subtitle: {
+										               // text: '',
+										               // x: -20
+										            },
+										            xAxis: {
+										                
+										               categories: [#{list items:1..5, as:'i'}'${postedtimelist.get(i-1)}',#{/list}]
+										                   },
+										            yAxis: {
+										                title: {
+										                    text: 'Tweet Count'
+										                },
+										                plotLines: [{
+										                    value: 0,
+										                    width: 1,
+										                    color: '#FF0000'
+										                }]
+										            },
+										            tooltip: {
+										                formatter: function() {
+										                        return '<b>'+ this.series.name +'</b><br/>'+
+										                        this.x +': '+ this.y+"tweets" ;
+										                }
+										            },
+										            legend: {
+										                layout: 'vertical',
+										                align: 'right',
+										                verticalAlign: 'top',
+										               // x: -10,
+										                y: 100,
+										                borderWidth: 0
+										            },
+										            series: [ {
+										                name: 'Tweets',
+										                data: [#{list items:1..5, as:'i'}${tweetcountlist.get(i-1)},#{/list}]
+										                
+										            }, {
+										                name: 'Retweets',
+										                data: [#{list items:1..5, as:'i'}${retweetcountlist.get(i-1)},#{/list}]
+										            }
+										            ]
+											        });
+											    });
+                        </script>
+                        </div>
+</div>
+</div>
+
+
+<div class="span4 offset2">
+<div id=tweetvsretweetfunnel> <p>Tweet vs ReTweet Funnel</p>
+<div id="container2" style="min-width: 300px; height: 400px; margin: 0 auto">
+<script>
+			    var chart;
+			    $(document).ready(function() {
+			        chart = new Highcharts.Chart({
+			            chart: {
+			                renderTo: 'container2',
+			                type: 'bar'
+			            },
+			            title: {
+			                text: 'Tweet Vs Retweet Funnel'
+			            },
+			            xAxis: {
+			                categories: ['China', 'Twitter']
+			            },
+			            yAxis: {
+			                min: 0,
+			                title: {
+			                    text: 'Total Tweets'
+			                }
+			            },
+			            legend: {
+			                backgroundColor: '#FFFFFF',
+			                reversed: true
+			            },
+			            tooltip: {
+			                formatter: function() {
+			                    return ''+
+			                        this.series.name +': '+ this.y +'';
+			                }
+			            },
+			            plotOptions: {
+			                series: {
+			                    stacking: 'normal'
+			                }
+			            },
+			                series: [{
+			                name: 'Tweets',
+			                data: [${chinatabletotaltweets},${twittertabletotaltweets}]
+			            }, {
+			                name: 'Retweets',
+			                data: [${chinatabletotalretweets},${twittertabletotalretweets}]
+			            }, ]
+			        });
+			    });
+
+</script>
+</div>
+</div>
+</div>
+
+<div class="span4 offset2">
+<div id=browser> <p id="browser"> Browser </p>
+<div id="container" style="min-width:300px; height: 400px; margin: 0 auto">
+<script type=text/javascript>
+
+    var chart;
+    
+    $(document).ready(function () {
+        
+        // Build the chart
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Tweeted From'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: [
+                  ['${browser1}',  ${browsercount1}],
+                    ['${browser2}',      ${browsercount2}],
+                    {
+                        name: '${browser3}',
+                        y: ${browsercount3},
+                        sliced: true,
+                        selected: true
+                    },
+                    ['${browser4}', ${browsercount4}],
+                    ['${browser5}', ${browsercount5}],
+                    ['${browser6}', ${browsercount6}],
+                    ['${browser7}', ${browsercount7}],
+                    ['${browser8}', ${browsercount8}],
+                    ['${browser9}', ${browsercount9}],
+                    ['${browser10}', ${browsercount10}],
+                    ['${others}',   ${otherscount}]
+                ]
+            }]
+        });
+    });
+    
+
+    
+	</script>
+    </div>
+​</div>
+</div>
+</div>
+
+
+<div class="row"> 
+    <div class=span3>
+    <div id="location">  <p> Location </p> </div> 
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+				     google.load('visualization', '1', {'packages': ['geochart']});
+				     google.setOnLoadCallback(drawMarkersMap);
+				
+				      function drawMarkersMap() {
+				      var data = google.visualization.arrayToDataTable([
+				        ['City',   'Tweets'],
+				       #{list items:1..citynamelist.size(), as:'i'}['${citynamelist.get(i-1)}', ${citycountlist.get(i-1)}], #{/list}
+				        
+				      ]);
+				
+				      var options = {
+				     
+				        displayMode: 'markers',
+				        colorAxis: {colors: ['green', 'blue']}
+				       			        
+				      };
+				     
+				      var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
+				      chart.draw(data, options);
+				    };
+    </script>
+    <div id="chart_div" style="width: 400px; height: 500px;"></div>
+  
+    
+
+</div>
+</div>
+
+
+
+
+
+</body>
+</html>
