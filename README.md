@@ -21,5 +21,5 @@ Charts used in the Template design inclues:
 
 Connecting to gnipstream uses the source code available at: https://github.com/gnip/support/tree/master/Premium%20Stream%20Connection/Java
 
-Note:  Server and Parser are in the early versions and it cannot handle large datasets, subsequently gnip might forcefully disconnect the stream if the bandwidth fails to meet the flow in of large payloads.
+Note:  Server and Parser are in the early versions, subsequently gnip might forcefully disconnect the stream if the bandwidth fails to meet the flow in of large payloads.
 
