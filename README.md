@@ -19,7 +19,7 @@ Charts used in the Template design inclues:
 3) Pie chart -- Anyalysis on the Platform where the Tweets Came from
 4) Geo Chart -- Geo mapping based on the origin of the tweets.
 
-Connecting to gnipstream uses the source code available at: https://github.com/gnip/support/tree/master/Premium%20Stream%20Connection/Java
+Connecting to Gnipstream uses the source code available at: https://github.com/gnip/support/tree/master/Premium%20Stream%20Connection/Java
 
-Note:  Server and Parser are in the early versions, subsequently gnip might forcefully disconnect the stream if the bandwidth fails to meet the flow in of large payloads.
+Note:  Server and Parser are in the early versions, subsequently Gnip might forcefully disconnect the stream if the bandwidth fails to meet the flow-in of large payloads.
 
