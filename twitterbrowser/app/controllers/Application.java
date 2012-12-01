@@ -45,8 +45,9 @@ public static void index() {
     	 int chinatabletotalretweets=0;
     	 String cityname[]=new String[1000];
     	 int citycount[]=new int[1000];
+    	 int count=0;
     	 List<Object> citynamelist= new ArrayList<Object>();
-	     List<Object> citycountlist=new ArrayList<Object>();
+	 List<Object> citycountlist=new ArrayList<Object>();
 	     
 	     
 	     
@@ -75,24 +76,24 @@ public static void index() {
 		    	        resultSet = statement
 		    	            .executeQuery("select browser, count(browser) from gnipdata."+tablename+" group by browser order by count(browser) desc limit 10;");  // limit accourding to the data volume that has to be rendered to the UI
 		    	        
-		    	        int totalrowinquery=0;
+		    	        
     	                while (resultSet.next()) {
         	        
-								        	      	browser[totalrowinquery]=resultSet.getString("browser");
-								        	      	browsercount[totalrowinquery]=resultSet.getInt("count(browser)");
-								        	      	totalrowinquery++;
+								        	      	browser[count]=resultSet.getString("browser");
+								        	      	browsercount[count]=resultSet.getInt("count(browser)");
+								        	      	count++;
         	                                        //System.out.println("browser: "+browser+"    count:"+count);
         	                                      }
     	        
 			    	    resultSet=statement.executeQuery("select postedtime,count(postedtime),sum(retweetcount) from gnipdata."+tablename+" group by postedtime order by postedtime;");
 			    	    
-			    	    int trquery2=0;
+			    	    count=0;
 			    	    while(resultSet.next()){      	
     	   
-								    	        	postedtime[trquery2]=resultSet.getString("postedtime");
-								    	        	tweetcount[trquery2]=resultSet.getInt("count(postedtime)");
-								    	        	retweetcount[trquery2]=resultSet.getInt("sum(retweetcount)");
-								    	        	trquery2++;
+								    	        	postedtime[count]=resultSet.getString("postedtime");
+								    	        	tweetcount[count]=resultSet.getInt("count(postedtime)");
+								    	        	retweetcount[count]=resultSet.getInt("sum(retweetcount)");
+								    	        	count++;
     	        	
     	                                        }
     	        
@@ -113,17 +114,17 @@ public static void index() {
                 //System.out.println("printing location results");
                 
                 resultSet=statement.executeQuery("select location,count(location) from "+tablename+" group by location order by count(location);");
-                int ii=0;
+                count=0;
                 while(resultSet.next())
                 {   
-                	cityname[ii]=resultSet.getString("location");
-                	citycount[ii]=resultSet.getInt("count(location)");
+                	cityname[count]=resultSet.getString("location");
+                	citycount[count]=resultSet.getInt("count(location)");
                 	
-                	citynamelist.add(cityname[ii]);
-	      	    	citycountlist.add(citycount[ii]);
-	      	    	System.out.println(citynamelist.get(ii));
-	      	    	System.out.println(citycountlist.get(ii));
-	      	    	ii++; 
+                	citynamelist.add(cityname[count]);
+	      	    	citycountlist.add(citycount[count]);
+	      	    	System.out.println(citynamelist.get(count));
+	      	    	System.out.println(citycountlist.get(count));
+	      	    	count++; 
                 }
     	        	
     	       
