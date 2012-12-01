@@ -9,7 +9,7 @@ Getting Started with Gnip : http://support.gnip.com/
 
 Repostiory Description:
 
-*Package Gnip connector has a server that would connect to the Gnip stream and read the Json data and the parser would parse the Json, gets required data and writes them to a  MySql Database.
+*Package Gnip connector has a server that would connect to the Gnip stream and the parser would parse the Json, gets the required data and writes them to a  MySql Database.
 
 *Package Twitter Browser is a Play framework repository that reads the required values from the Json data that is fed into the MySql database and renders the insight on the fetched data in the form of the listed below charts - 
 
