@@ -200,22 +200,8 @@ color: #F00;
                 type: 'pie',
                 name: 'Browser share',
                 data: [
-                  ['${browser1}',  ${browsercount1}],
-                    ['${browser2}',      ${browsercount2}],
-                    {
-                        name: '${browser3}',
-                        y: ${browsercount3},
-                        sliced: true,
-                        selected: true
-                    },
-                    ['${browser4}', ${browsercount4}],
-                    ['${browser5}', ${browsercount5}],
-                    ['${browser6}', ${browsercount6}],
-                    ['${browser7}', ${browsercount7}],
-                    ['${browser8}', ${browsercount8}],
-                    ['${browser9}', ${browsercount9}],
-                    ['${browser10}', ${browsercount10}],
-                    ['${others}',   ${otherscount}]
+                	#{list items:1..browserlist.size(), as:'i'}['${browserlist.get(i-1)}', ${browsercountlist.get(i-1)}], #{/list}
+                  
                 ]
             }]
         });
