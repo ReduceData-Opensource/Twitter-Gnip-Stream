@@ -13,6 +13,7 @@ Repostiory Description:
 
 *Package twitterbrowser is a Play framework repository that reads the required values from the database and renders insightfull stats using highcharts, Google charts. 
 
+Charts used in the Template design inclues:
 1) Line chart -- Tweet Vs Retweet comparison
 2) Stacked Bar chart -- Tweet Vs Retweet Funnel
 3) Pie chart -- Anyalysis on the Platform where the Tweets Came from
