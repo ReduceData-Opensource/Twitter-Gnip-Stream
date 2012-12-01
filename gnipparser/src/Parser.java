@@ -1,4 +1,3 @@
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,16 +22,16 @@ public class Parser {
 public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 	   Gnipdatainsert1 obj=new Gnipdatainsert1();
 	   PrintWriter writer=null;
-	   String postedtime,twitterid,location = null,keyword,browser;
+	   String postedtime,twitterid,location,keyword,browser;
 	   int retweetcount;
     
        JsonStreamParser parser = new JsonStreamParser(new FileReader("gnipdata.txt"));
     	   try{
-      		   Thread.currentThread().sleep(5000); // sleep so that the gnipdatastream write a complete record for a single user in a file when the parser and streamer started synchoronous
+      		   Thread.currentThread().sleep(5000)//  Wait for the Streaming connection to write a complete data for a single user
     		  }
        	   catch(Exception e)
        	   {   
-       		   System.out.println("e");
+       		   System.out.println(e);
        	   } 
     	   boolean flag=false;
     	
@@ -113,7 +112,7 @@ public static void main(String[] args) throws FileNotFoundException, Interrupted
 								    		
 								    		
 								    		 
-								    		 // Get location instead of actor--->location--->displayName since it is not always present.
+								    		 // Get timezone rather then actor--->location--->displayName as the same data is not always present.
 								    		try{
 								    			JsonReader reader4 = new JsonReader(new FileReader("support1.txt"));
 								    			JsonParser jsonparser4=new JsonParser();
@@ -168,21 +167,22 @@ public static void main(String[] args) throws FileNotFoundException, Interrupted
 								    		     } 
 								    		 catch (Exception e) {
 												
-								    			 Thread.currentThread().sleep(5000); // sleep till the last write to the database has been done
-								    			 // call the write to database after sleeping
+								    			 Thread.currentThread().sleep(5000); //  To be in synchoronous with the database write-record 
+								    			 
+								    			 // call the write to the database
 								    			 obj.readDataBase(twitterid,postedtime,location,retweetcount,keyword,browser,str);
 								    		                     }
 								    		 
 								    		
 								    	
 								    	 } 
-								    	   catch (FileNotFoundException e) {} catch (IOException e) {}
+								    	   catch (FileNotFoundException e) {System.out.println(e);} catch (IOException e) {System.out.println(e);}
 								    	  
-								   }// end of if;
+								   }
     		 
     		 else
         	 {
-        		 Thread.currentThread().sleep(5000); // sleep so that a case when the data is not yet received can be read after waiting
+        		 Thread.currentThread().sleep(5000); // wait to accomadate the gnip record delay
         	 }
     		 
     	   
@@ -192,16 +192,16 @@ public static void main(String[] args) throws FileNotFoundException, Interrupted
 } 
     	 catch(Exception e)
     	 {
-    		 System.out.println(e); // Case when the searched twitter rule is not trending, so had to wait accordingly
-    		 Thread.currentThread().sleep(3000);
-    		 //flag=true;  can set the flag to stop the parser when required to stop waiting and terminate
+    		 System.out.println(e); 
+    		 Thread.currentThread().sleep(3000); // set the timer according to the keep alive timer of the gnip stream
+    		 
     	 }    
     	 
-   }//close of while for parser.hasnext();
+   }
   
- } // end of main
+ } 
  
-} // end of class parser
+} 
 
 
 
@@ -222,7 +222,7 @@ public static void main(String[] args) throws FileNotFoundException, Interrupted
 	      // Setup the connection with the DB
 	      connect = DriverManager
 	          .getConnection("jdbc:mysql://localhost/gnipdata?"
-	              + "user=&password="); // Corresponding User and password to the database
+	              + "user=&password="); // Corresponding User name and password to the database
 
 	    
 	      statement = connect.createStatement();
@@ -294,6 +294,7 @@ public static void main(String[] args) throws FileNotFoundException, Interrupted
 	        connect.close();
 	      }
 	    } catch (Exception e) {
+	    	System.out.println(e);
 
 	    }
 	  }
