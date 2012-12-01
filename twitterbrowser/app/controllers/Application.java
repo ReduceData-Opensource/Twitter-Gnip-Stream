@@ -171,50 +171,42 @@ public static void index() {
 	{
 	    	System.out.println("Browser:"+browser[i]+" count:"+browsercount[i]);  
 	}
-	browser1=browser[0];
-	browser2=browser[1];
-	browser3=browser[2];
-	browser4=browser[3];
-	browser5=browser[4];
-	browser6=browser[5];
-	browser7=browser[6];
-	browser8=browser[7];
-	browser9=browser[8];
-	browser10=browser[9];
 	
-	browsercount1=(browsercount[0]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
-	browsercount2=(float)(browsercount[1]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
-	browsercount3=(float)(browsercount[2]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
-	browsercount4=(float)(browsercount[3]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
-	browsercount5=(float)(browsercount[4]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
-	browsercount6=(float)(browsercount[5]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
-	browsercount7=(float)(browsercount[6]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
-	browsercount8=(float)(browsercount[7]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
-	browsercount9=(float)(browsercount[8]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
-	browsercount10=(float)(browsercount[9]/(browsercount[0]+browsercount[1]+browsercount[2]+browsercount[3]+browsercount[4]+browsercount[5]+browsercount[6]+browsercount[7]+browsercount[8]+browsercount[9]))*100;
+	List<Object> browserlist=new ArrayList<Object>();
+	List<Object> browsercountlist=new ArrayList<Object>();
+	List<Object> browserpercentagelist=new ArrayList<Object>();
+	int sum=0;
+	for(int i=0;i<10;i++)
+	{
+		browserlist.add(browser[i]);
+		browsercountlist.add(browsercount[i]);
+		int sum=sum+browsercountlist[i];
+	}
 	
-	otherscount=100-(browsercount1+browsercount2+browsercount3+browsercount4+browsercount5+browsercount6+browsercount7+browsercount8+browsercount9+browsercount10);
+	
+	for(int i=0;i<10;i++)
+	{
+		browserpercentagelist.add((float)(browsercountlist[i]/sum)*100);
+	}
+	
+		
 	
 	
 	List<Object> postedtimelist=new ArrayList<Object>();
 	for(int i=0;i<20;i++)
 	{  
-		//System.out.println("posted time:"+postedtime[i]+"retweetcount:"+retweetcount[i]+"tweetcount:"+tweetcount[i]);
+		
 		try{
 		
 		postedtimelist.add(postedtime[i].substring(17,19));
 		}
 		catch(NullPointerException e)
 		{
-			continue;
+			System.out.println(e);
 		}
 		
 	}
 	
-	
-	
-	
-	System.out.println("checking arraylist");
 	
 	List<Object> tweetcountlist=new ArrayList<Object>();
 	List<Object> retweetcountlist=new ArrayList<Object>();
@@ -227,13 +219,14 @@ public static void index() {
 	
 	
 	
-  render(browser1,browsercount1,browser2,browsercount2,browser3,browsercount3,browser4,browsercount4,browser5,browsercount5,browser6,browsercount6,browser7,browsercount7,browser8,browsercount8,browser9,browsercount9,browser10,browsercount10,others,otherscount,
+          render(browserlist,
+                 browserpercentagelist,
 		 postedtimelist,
 		 tweetcountlist,
 		 retweetcountlist,
 		 twittertabletotaltweets,twittertabletotalretweets,
 		 chinatabletotaltweets,chinatabletotalretweets,
-         citynamelist,citycountlist);
+                 citynamelist,citycountlist);
     
 }
     
