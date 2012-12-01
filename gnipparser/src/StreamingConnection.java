@@ -1,5 +1,4 @@
 
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -35,17 +34,10 @@ public class StreamingConnection {
 		 writer = new PrintWriter("gnipdata.txt");
 		
 		 long start = System.currentTimeMillis();
-		//	long end = start + 2*1000; // 60 seconds * 1000 ms/sec
-			
-			
-			  //out.write("Hello Java");
-			  //Close the output stream
-			  //out.close();
-	               
-	                	//while (System.currentTimeMillis() < end && line!=null) //closes the stream after 2 secs
+	
 			while ( line!=null)    		
 			{
-	            		    // run
+	            		    
 	                    System.out.println(line);
 	                    writer.println(line);
 	                    line = reader.readLine();
